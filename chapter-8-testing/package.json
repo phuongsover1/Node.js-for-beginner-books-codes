@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "name": "chapter-8-testing",
+  "version": "1.0.0",
+  "description": "Testing using Jest",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "phuong",
+  "license": "MIT"
+}
