@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "Testing using Jest",
   "scripts": {
-    "node-test": "node --test node_test/"
+    "node-test": "node --test node_test/",
+    "jest-test": "jest"
   },
   "author": "phuong",
   "license": "MIT",
