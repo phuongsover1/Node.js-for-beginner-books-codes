@@ -5,7 +5,9 @@
   "description": "Testing using Jest",
   "scripts": {
     "node-test": "node --test node_test/",
-    "jest-test": "jest"
+    "jest-test": "jest",
+    "jest-test:coverage": "jest --coverage",
+    "node-test:coverage": "node --test --experimental-test-coverage node_test/"
   },
   "author": "phuong",
   "license": "MIT",
