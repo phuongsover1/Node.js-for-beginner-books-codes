@@ -39,6 +39,13 @@ app.get("/msg/:id/:action(edit|delete)", (req, res, next) => {
   );
 });
 
+app.get(/^\/films$/, (req, res) => {
+  const { category, director } = req.query;
+  res.send(
+    `You are looking for films with category ${category} and director ${director}`
+  );
+});
+
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
