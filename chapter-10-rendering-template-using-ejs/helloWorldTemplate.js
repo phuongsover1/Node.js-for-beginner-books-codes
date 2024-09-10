@@ -58,9 +58,13 @@ app.get("/users/:id", (req, res) => {
 
 // Header management
 app.get("/", (req, res, next) => {
-  res.set("Content-Type", "text/html");
+  res.set({
+    "Content-Type": "text/html",
+    "x-powered-by": "Unicorns and rainbows",
+  });
   res.send("<h1>Hello World</h1>");
 });
+
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
