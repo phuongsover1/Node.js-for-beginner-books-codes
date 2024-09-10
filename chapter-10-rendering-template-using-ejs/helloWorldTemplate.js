@@ -4,12 +4,12 @@ const port = 3000;
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index", {
-    title: "This is an Express app",
-    subtitle: "using EJS as template engine",
-  });
-});
+// app.get("/", (req, res) => {
+//   res.render("index", {
+//     title: "This is an Express app",
+//     subtitle: "using EJS as template engine",
+//   });
+// });
 
 app.get("/users/:id/from/:originCity/to/:destinationCity", (req, res) => {
   console.log("param: ", req.params);
@@ -56,6 +56,11 @@ app.get("/users/:id", (req, res) => {
   res.send(`You are looking for the user with id ${req.params.id}`);
 });
 
+// Header management
+app.get("/", (req, res, next) => {
+  res.set("Content-Type", "text/html");
+  res.send("<h1>Hello World</h1>");
+});
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
