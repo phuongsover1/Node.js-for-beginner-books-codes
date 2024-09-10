@@ -48,13 +48,14 @@ app.get(/^\/films$/, (req, res) => {
 });
 
 // The important of order
-app.get("/users/:id", () => {
+app.get("/users/me", (req, res) => {
+  res.send("You are looking for the current user");
+});
+
+app.get("/users/:id", (req, res) => {
   res.send(`You are looking for the user with id ${req.params.id}`);
 });
 
-app.get("/users/me", () => {
-  res.send("You are looking for the current user");
-});
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
