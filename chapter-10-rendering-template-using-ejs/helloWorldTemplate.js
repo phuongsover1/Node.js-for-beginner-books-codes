@@ -62,6 +62,8 @@ app.get("/", (req, res, next) => {
     "Content-Type": "text/html",
     "x-powered-by": "Unicorns and rainbows",
   });
+
+  res.removeHeader("x-powered-by");
   res.send("<h1>Hello World</h1>");
 });
 
