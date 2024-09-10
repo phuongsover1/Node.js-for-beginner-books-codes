@@ -57,14 +57,30 @@ app.get("/users/:id", (req, res) => {
 });
 
 // Header management
-app.get("/", (req, res, next) => {
-  res.set({
-    "Content-Type": "text/html",
-    "x-powered-by": "Unicorns and rainbows",
-  });
+// app.get("/", (req, res, next) => {
+//   res.set({
+//     "Content-Type": "text/html",
+//     "x-powered-by": "Unicorns and rainbows",
+//   });
 
-  res.removeHeader("x-powered-by");
-  res.send("<h1>Hello World</h1>");
+//   res.removeHeader("x-powered-by");
+//   res.send("<h1>Hello World</h1>");
+// });
+
+// Status codes
+// app.get("/", (req, res, next) => {
+//   res.status(200);
+//   res.send("<h1>Hello World</h1>");
+// });
+
+// Chaining method
+// app.get("/", (req, res, next) => {
+//   res.status(200).set("Content-Type", "text/html").send("<h1>Hello World</h1>");
+// });
+
+// Sending status codes only
+app.get("/", (req, res, next) => {
+  res.sendStatus(500);
 });
 
 app.listen(port, () => {
