@@ -79,8 +79,13 @@ app.get("/users/:id", (req, res) => {
 // });
 
 // Sending status codes only
+// app.get("/", (req, res, next) => {
+//   res.sendStatus(500);
+// });
+
+// Redirects
 app.get("/", (req, res, next) => {
-  res.sendStatus(500);
+  res.redirect(301, "https://ulisesgascon.com/");
 });
 
 app.listen(port, () => {
