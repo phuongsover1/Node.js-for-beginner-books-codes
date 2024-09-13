@@ -93,6 +93,20 @@ app.get("/json", (req, res, next) => {
   res.json({ message: "Hello World" });
 });
 
+// Sending filea
+app.get("/report", (req, res, next) => {
+  res.sendFile(
+    "/home/phuong/test-nvm/chapter-10-rendering-template-using-ejs/download-file.txt"
+  );
+});
+
+//// Using download()
+app.get("/report/download", (req, res, next) => {
+  res.download(
+    "/home/phuong/test-nvm/chapter-10-rendering-template-using-ejs/download-file.txt"
+  );
+});
+
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
