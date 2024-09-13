@@ -84,8 +84,13 @@ app.get("/users/:id", (req, res) => {
 // });
 
 // Redirects
-app.get("/", (req, res, next) => {
-  res.redirect(301, "https://ulisesgascon.com/");
+// app.get("/", (req, res, next) => {
+//   res.redirect(301, "https://ulisesgascon.com/");
+// });
+
+// Using res.json()
+app.get("/json", (req, res, next) => {
+  res.json({ message: "Hello World" });
 });
 
 app.listen(port, () => {
