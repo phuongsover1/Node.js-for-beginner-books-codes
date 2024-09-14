@@ -132,7 +132,12 @@ const detectLangMiddlewareWithDefaultLanguage =
   };
 
 // Adding middleware to the application
-app.use(legacyBrowsersMiddleware);
+// app.use(legacyBrowsersMiddleware);
+
+// Adding middleware to a route
+app.get("/users", legacyBrowsersMiddleware, (req, res) => {
+  res.send("Hello users");
+});
 
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
