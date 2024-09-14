@@ -127,7 +127,9 @@ const legacyBrowsersMiddleware = (req, res, next) => {
 // Use closures to add additional configuration to the middleware functions
 const detectLangMiddlewareWithDefaultLanguage =
   (defaultLang) => (req, res, next) => {
-    req.lang = req.headers["accept-language"] || defaultLang;
+    if (defaultLang)
+      req.lang = req.headers["accept-language"] + `,${defaultLang}`;
+    else req.lang = req.headers["accept-language"] || defaultLang;
     next();
   };
 
@@ -139,6 +141,17 @@ app.get("/users", legacyBrowsersMiddleware, (req, res) => {
   res.send("Hello users");
 });
 
+// Chaining middleware
+app.get(
+  "/chaining-middleware",
+  legacyBrowsersMiddleware,
+  detectLangMiddlewareWithDefaultLanguage("vn"),
+  (req, res) => {
+    console.log("Request.lang: ", req.lang);
+
+    res.send("Chaning Middleware");
+  }
+);
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
