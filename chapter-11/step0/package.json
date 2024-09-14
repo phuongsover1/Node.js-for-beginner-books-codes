@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-for-beginners",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "public/*.js"
+    ]
+  },
+  "scripts": {
+    
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
