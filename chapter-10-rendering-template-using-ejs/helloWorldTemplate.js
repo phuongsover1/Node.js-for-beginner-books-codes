@@ -74,9 +74,9 @@ app.get("/users/:id", (req, res) => {
 // });
 
 // Chaining method
-// app.get("/", (req, res, next) => {
-//   res.status(200).set("Content-Type", "text/html").send("<h1>Hello World</h1>");
-// });
+app.get("/", (req, res, next) => {
+  res.status(200).set("Content-Type", "text/html").send("<h1>Hello World</h1>");
+});
 
 // Sending status codes only
 // app.get("/", (req, res, next) => {
@@ -115,6 +115,8 @@ const detectLangMiddleware = (req, res, next) => {
 
 // Managing responses
 const legacyBrowsersMiddleware = (req, res, next) => {
+  console.log("In legacyBrowserMiddleware");
+
   if (req.headers["user-agent"].includes("MSIE")) {
     res.redirect("https://updatemybrowser.org/");
   } else {
@@ -128,6 +130,9 @@ const detectLangMiddlewareWithDefaultLanguage =
     req.lang = req.headers["accept-language"] || defaultLang;
     next();
   };
+
+// Adding middleware to the application
+app.use(legacyBrowsersMiddleware);
 
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
