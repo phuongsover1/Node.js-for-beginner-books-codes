@@ -107,6 +107,20 @@ app.get("/report/download", (req, res, next) => {
   );
 });
 
+// Adding context to the request in middleware
+const detectLangMiddleware = (req, res, next) => {
+  req.lang = req.headers["accept-language"] || "en";
+  next();
+};
+
+// Managing responses
+const legacyBrowsersMiddleware = (req, res, next) => {
+  if (req.headers["user-agent"].includes("MSIE")) {
+    res.redirect("https://updatemybrowser.org/");
+  } else {
+    next();
+  }
+};
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
