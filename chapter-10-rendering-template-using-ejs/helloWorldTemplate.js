@@ -121,6 +121,14 @@ const legacyBrowsersMiddleware = (req, res, next) => {
     next();
   }
 };
+
+// Use closures to add additional configuration to the middleware functions
+const detectLangMiddlewareWithDefaultLanguage =
+  (defaultLang) => (req, res, next) => {
+    req.lang = req.headers["accept-language"] || defaultLang;
+    next();
+  };
+
 app.listen(port, () => {
   console.log(`Application running in http://localhost:${port}`);
 });
