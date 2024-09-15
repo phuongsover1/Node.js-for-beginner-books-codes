@@ -25,7 +25,7 @@ app.get('/api/v1/whisper/:id', async (req, res) => {
   else res.json(whisper)
 })
 
-app.post('api/v1/whisper', async (req, res) => {
+app.post('/api/v1/whisper', async (req, res) => {
   const { message } = req.body
   if (!message) {
     res.sendStatus(400)
@@ -39,6 +39,7 @@ app.put('/api/v1/whisper/:id', async (req, res) => {
   const { message } = req.body
   if (!message) {
     res.sendStatus(400)
+    return
   }
 
   const id = parseInt(req.params.id)
