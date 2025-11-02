@@ -16,11 +16,16 @@
   "author": "",
   "license": "ISC",
   "standard": {
-    "env": [ "jest" ],
-    "ignore": [ "public/*.js" ]
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "public/*.js"
+    ]
   },
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.9",
     "express": "^4.18.3"
   },
