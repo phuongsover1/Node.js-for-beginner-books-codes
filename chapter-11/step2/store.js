@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { Whisper } from './database.js'
 
 const filename = path.join(process.cwd(), 'db.json')
 
@@ -10,37 +11,19 @@ const readData = async () => {
   return JSON.parse(data)
 }
 
-const getAll = readData
+const getAll = async () => Whisper.find();
 
-const getById = async (id) => {
-  const data = await readData()
-  return data.find(item => item.id === id)
-}
+const getById = async (id) => Whisper.findById({ _id: id })
 
 const create = async (message) => {
-  const data = await readData()
-  const newItem = { message, id: data.length + 1 }
-  await saveChanges(data.concat([newItem]))
-  return newItem
+  const whisper = new Whisper({ message })
+  await whisper.save()
+  return whisper
 }
 
-const updateById = async (id, message) => {
-  const data = await readData()
-  const newData = data.map(current => {
-    if (current.id === id) {
-      return { ...current, message }
-    }
-    return current
-  })
+const updateById = async (id, message) =>
+  Whisper.findOneAndUpdate({ _id: id }, { message }, { new: false })
 
-  await saveChanges(newData)
-}
-
-const deleteById = async id => {
-  const data = await readData()
-  await saveChanges(data
-    .filter(current => current.id !== id)
-  )
-}
+const deleteById = async id => Whisper.findOneAndDelete({ _id: id })
 
 export { getAll, getById, create, updateById, deleteById }
