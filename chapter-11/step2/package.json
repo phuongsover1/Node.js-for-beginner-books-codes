@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node --require dotenv/config index.js",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test": "jest --setupFiles dotenv/config",
+    "test:coverage": "jest --coverage --setupFiles dotenv/config",
     "lint": "standard",
     "lint:fix": "standard --fix",
     "infra:start": "docker-compose up -d --build",
