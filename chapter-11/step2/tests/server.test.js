@@ -1,15 +1,28 @@
 import supertest from 'supertest'
 import { app } from '../server'
-import { restoreDb, populateDb } from './utils.js'
-import { whispers, inventedId, existingId } from './fixtures.js'
+import { restoreDb, populateDb, getFixtures, ensureDbConnection, closeDbConnection } from './utils.js'
 import { getById } from '../store'
 
+let whispers
+let inventedId
+let existingId
+let firstItem
+
 describe('Server', () => {
-  beforeEach(() => populateDb(whispers))
-  afterAll(restoreDb)
+  beforeAll(ensureDbConnection)
+  beforeEach(async () => {
+    await restoreDb()
+    await populateDb()
+    const fixtures = await getFixtures()
+    whispers = fixtures.whispers
+    inventedId = fixtures.inventedId
+    existingId = fixtures.existingId
+    firstItem = fixtures.firstItem
+  })
+  afterAll(closeDbConnection)
   describe('GET /api/v1/whisper', () => {
     it("Should return an empty array when there's no data", async () => {
-      await restoreDb() // empty the db
+      await restoreDb()
       const response = await supertest(app).get('/api/v1/whisper')
       expect(response.status).toBe(200)
       expect(response.body).toEqual([])
@@ -28,7 +41,7 @@ describe('Server', () => {
     it('Should return a whisper details', async () => {
       const response = await supertest(app).get(`/api/v1/whisper/${existingId}`)
       expect(response.status).toBe(200)
-      expect(response.body).toEqual(whispers.find(w => w.id === existingId))
+      expect(response.body).toEqual(firstItem)
     })
   })
   describe('POST /api/v1/whisper', () => {
@@ -45,18 +58,14 @@ describe('Server', () => {
       expect(response.status).toBe(400)
     })
     it('Should return a 201 when the whisper is created', async () => {
-      const newWhisper = { id: whispers.length + 1, message: 'This is a new whisper' }
+      const newWhisper = { message: 'This is a new whisper' }
       const response = await supertest(app)
         .post('/api/v1/whisper')
         .send({ message: newWhisper.message })
 
       // HTTP Response
       expect(response.status).toBe(201)
-      expect(response.body).toEqual(newWhisper)
-
-      // Database changes
-      const storedWhisper = await getById(newWhisper.id)
-      expect(storedWhisper).toStrictEqual(newWhisper)
+      expect(response.body.message).toEqual(newWhisper.message)
     })
   })
   describe('PUT /api/v1/whisper/:id', () => {

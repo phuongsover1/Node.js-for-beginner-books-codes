@@ -14,7 +14,6 @@ app.get('/about', async (req, res) => {
 
 app.get('/api/v1/whisper', async (req, res) => {
   const whispers = await getAll()
-  console.log("🚀 ~ whispers:", whispers)
   res.json(whispers)
 })
 
